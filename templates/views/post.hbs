@@ -1,0 +1,44 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+			<article>
+				<p><a href="/blog">&larr; back to the blog</a></p>
+				<hr>
+				<header>
+					<h1>{{data.post.title}}</h1>
+					<h5>
+						{{{categoryList data.post.categories prefix="Posted in "}}}
+						{{#if author.name.first}}by {{author.name.first}}{{/if}}
+					</h5>
+				</header>
+				<div class="post">
+					{{#if data.post.image}}<img src="{{{cloudinaryUrl data.post.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
+					{{{data.post.content.extended}}}
+				</div>
+				{{#if data.post.ratings}}
+					{{#each data.post.ratings}}
+						<li class="unstyled">
+							{{rating}} stars by {{userID.name.full}}
+						</li>
+					{{/each}}
+				{{/if}}
+				<div class="col-md-6" style="margin-top:10px;">
+					<form method="post">
+						<input type="hidden" name="action" value="post-rating">
+						<div class="my-rating"></div>
+						<input id="rateValue" name="rating" type="hidden"> 
+						<input name="userId" value="{{user._id}}" type="hidden">
+						<input name="postId" value="{{data.post._id}}" type="hidden">
+						{{#if user}} 
+						<img class="img-thumbnail img-circle" width=32 heigth=32 src="{{user.facebook.avatar}}">
+						<button class="btn btn-primary" type="submit">Post</button>
+						{{else}}
+						<a class="btn btn-primary" href="/auth/facebook?target={{data.returnTo}}">Sign In With Facebook to Comment</a>
+						{{/if}}
+					</form>
+				</div>
+				
+			</article>
+		</div>
+	</div>
+</div>
