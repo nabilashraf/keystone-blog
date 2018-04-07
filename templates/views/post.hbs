@@ -30,7 +30,9 @@
 						<input name="userId" value="{{user._id}}" type="hidden">
 						<input name="postId" value="{{data.post._id}}" type="hidden">
 						{{#if user}} 
-						<img class="img-thumbnail img-circle" width=32 heigth=32 src="{{user.facebook.avatar}}">
+							{{#if user.facebook.avatar}}
+								<img class="img-thumbnail img-circle" width=32 heigth=32 src="{{user.facebook.avatar}}">
+							{{/if}}
 						<button class="btn btn-primary" type="submit">Post</button>
 						{{else}}
 						<a class="btn btn-primary" href="/auth/facebook?target={{data.returnTo}}">Sign In With Facebook to Comment</a>
