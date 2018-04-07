@@ -18,3 +18,11 @@
 *SubCategories in Category model is added to easily view on the front end the list of subcategories in any category*
 
 
+`Blog Post Rating`
+
+[Blog Post Rating](./rating_blog_post.png)
+
+`Sub Categories in Blog`
+
+[Sub Categories in Blog](./subcategory_blog.png)
+
