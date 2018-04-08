@@ -1,6 +1,6 @@
-<div class="container">
-	<h1>Blog</h1>
-</div>
+
+<div class="jumbotron" style="background-image: url('https://ameinfo.com/wp-content/uploads1/2018/01/JT46J5-1024x768.jpg');height:300px;"></div>
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8 col-md-9">
@@ -8,13 +8,13 @@
 			<div class="blog">
 				{{# each data.posts.results}}
 				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
-					<h2><a href="{{postUrl slug}}">{{{title}}}</a></h2>
+					<h2><a href="{{postUrl slug categories.key subcategory.key}}">{{{title}}}</a></h2>
 					<p class="lead text-muted">{{categoryList categories prefix="Posted in "}}
 							{{#if author.name.first}}by {{author.name.first}}{{/if}}
 					</p>
 					{{#if image}}<img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img pull-right">{{/if}}
 					<p>{{{content.brief}}}</p>
-					{{#if content.extended}}<p class="read-more"><a href="{{postUrl slug}}">Read more...</a></p>{{/if}}
+					{{#if content.extended}}<p class="read-more"><a href="{{postUrl slug categories.key subcategory.key}}">Read more...</a></p>{{/if}}
 				</div>
 				{{/each}}
 			</div>
@@ -52,7 +52,7 @@
 							<a class="col-sm-2" data-toggle="collapse" href="#{{key}}" role="button" aria-expanded="false" aria-controls="example">+</a>
 							<div class="collapse" id="{{key}}">
 								{{#each subcategories}}
-								<a href="/blog/{{../key}}/{{key}}">
+								<a href="{{subcategoryUrl ../key key}}">
 									<div class="col-md col-md-offset-3" style="margin-top:3px;">
 										{{name}}
 									</div>

@@ -1,6 +1,7 @@
 var keystone = require('keystone');
 var Rating = keystone.list('PostRating');
-var Post = keystone.list('Post');
+
+var async = require('async');
 
 exports = module.exports = function (req, res) {
 
@@ -11,9 +12,12 @@ exports = module.exports = function (req, res) {
 	locals.section = 'blog';
 	locals.filters = {
 		post: req.params.post,
+		category: req.params.category,
+		subcategory: req.params.subcategory,
 	};
 	locals.data = {
 		posts: [],
+		categories: [],
 	};
 	locals.formData = req.body;
 
@@ -25,20 +29,43 @@ exports = module.exports = function (req, res) {
 		var q = keystone.list('Post').model.findOne({
 			state: 'published',
 			slug: locals.filters.post,
-		}).populate('author categories')
+		}).populate('author categories subcategory')
 		.populate({ 
 			path: 'ratings',
 			model: 'PostRating',
 			populate: {
-					path: 'userID',
-					model: 'User',
-					select: 'name'
+				path: 'userID',
+				model: 'User',
+				select: 'name'
 			}
 		});
 
 		q.exec(function (err, result) {
 			locals.data.post = result;
-			next(err);
+
+			keystone.list('PostCategory').model.find().populate('subcategories').sort('name').exec(function (err, results) {
+
+			if (err || !results.length) {
+				return next(err);
+			}
+
+			locals.data.categories = results;
+
+			// Load the counts for each category
+			async.each(locals.data.categories, function (category, next) {
+
+				keystone.list('Post').model.count().where('categories').in([category.id]).exec(function (err, count) {
+					category.postCount = count;
+					next(err);
+				});
+
+			}, function (err) {
+				next(err);
+			});
+
+		});
+
+			//next(err);
 		});
 
 	});
@@ -76,6 +103,8 @@ exports = module.exports = function (req, res) {
 
 		});
 
+	});
+
 	// Load other posts
 	view.on('init', function (next) {
 
@@ -88,7 +117,6 @@ exports = module.exports = function (req, res) {
 
 	});
 
-	});
 	// Render the view
 	view.render('post');
 };

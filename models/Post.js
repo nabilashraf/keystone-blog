@@ -22,7 +22,7 @@ Post.add({
 		extended: { type: Types.Html, wysiwyg: true, height: 400 },
 	},
 	categories: { type: Types.Relationship, ref: 'PostCategory', many: false },
-	subcategory: { type: Types.Relationship, ref: 'PostSubCategory', many: true, filters: { parentCategory: ':categories' } },
+	subcategory: { type: Types.Relationship, ref: 'PostSubCategory', many: false, filters: { parentCategory: ':categories' } },
 	ratings: { type: Types.Relationship, ref: 'PostRating', many: true },
 });
 

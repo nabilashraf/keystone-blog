@@ -1,6 +1,7 @@
+<div class="jumbotron" style="background-image: url('https://ameinfo.com/wp-content/uploads1/2018/01/JT46J5-1024x768.jpg');height:300px;"></div>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+		<div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-2">
 			<article>
 				<p><a href="/blog">&larr; back to the blog</a></p>
 				<hr>
@@ -39,8 +40,49 @@
 						{{/if}}
 					</form>
 				</div>
-				
 			</article>
+		</div>
+		<div class="col-sm col-md-3" style="margin-top: 100px;">
+			<h2>Categories</h2>
+			<div style="margin-top: 70px;" class="list-group">
+				{{#if data.post.categories.id}}
+				<a href="/blog" class="false list-group-item">All Categories</a>
+				{{else}}
+				<a href="/blog" class="active list-group-item">All Categories</a>
+				{{/if}} {{#each data.categories}} {{#eq ../data.post.categories.id id}}
+				<div class="active list-group-item">
+					<a class="col-sm" style="color:white;" href="{{categoryUrl key}}">{{name}}
+						<span class="badge badge-icon">{{postCount}}</span>
+					</a>
+					<a class="col-sm-2" style="color:white;" data-toggle="collapse" href="#{{key}}" role="button" aria-expanded="false" aria-controls="example">+</a>
+					<div class="collapse" id="{{key}}">
+						{{#each subcategories}}
+						<a style="color:white;" href="/blog/{{../key}}/{{key}}">
+							<div class="col-md col-md-offset-3" style="margin-top:3px;">
+								{{name}}
+							</div>
+						</a>
+						{{/each}}
+					</div>
+				</div>
+				{{else}}
+				<div class="false list-group-item">
+					<a class="col-sm" href="{{categoryUrl key}}">{{name}}
+						<span class="badge badge-icon">{{postCount}}</span>
+					</a>
+					<a class="col-sm-2" data-toggle="collapse" href="#{{key}}" role="button" aria-expanded="false" aria-controls="example">+</a>
+					<div class="collapse" id="{{key}}">
+						{{#each subcategories}}
+						<a href="{{subcategoryUrl ../key key}}">
+							<div class="col-md col-md-offset-3" style="margin-top:3px;">
+								{{name}}
+							</div>
+						</a>
+						{{/each}}
+					</div>
+				</div>
+				{{/eq}} {{/each}}
+			</div>
 		</div>
 	</div>
 </div>

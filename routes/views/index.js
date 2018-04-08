@@ -9,6 +9,9 @@ exports = module.exports = function (req, res) {
 	// item in the header navigation.
 	locals.section = 'home';
 
+	// Redirect to Blog
+	res.redirect('/blog');
+
 	// Render the view
-	view.render('index');
+	// view.render('index');
 };

@@ -206,8 +206,8 @@ _helpers.eq = function (lvalue, rvalue, options) {
 	// the routes by keynames to reduce the maintenance of changing urls
 
 	// Direct url link to a specific post
-	_helpers.postUrl = function (postSlug, options) {
-		return ('/blog/post/single/' + postSlug);
+	_helpers.postUrl = function (postSlug, categorySlug, subCategorySlug, options) {
+		return ('/blog/' + categorySlug + '/' + subCategorySlug + '/' + postSlug);
 	};
 
 	// might be a ghost helper
@@ -220,6 +220,12 @@ _helpers.eq = function (lvalue, rvalue, options) {
 	_helpers.categoryUrl = function (categorySlug, options) {
 		return ('/blog/' + categorySlug);
 	};
+
+	// create the sub-category url for a blog-category page
+	_helpers.subcategoryUrl = function (categorySlug, subCategorySlug, options) {
+		return ('/blog/' + categorySlug + '/' + subCategorySlug);
+	};
+
 
 	// ### Pagination Helpers
 	// These are helpers used in rendering a pagination system for content

@@ -38,7 +38,7 @@ exports = module.exports = function (app) {
 	app.get('/', routes.views.index);
 	app.get('/blog/:category?', routes.views.blog);
 	app.get('/blog/:category?/:subcategory?', routes.views.blog);
-	app.all('/blog/post/single/:post', routes.views.post);
+	app.all('/blog/:category/:subcategory/:post', routes.views.post);
 
 	// Initialize Passport and restore authentication state, if any, from the session.
 	app.use(passport.initialize());
