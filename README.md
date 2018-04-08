@@ -5,6 +5,11 @@
 `npm i`
 `node keystone`
 
+**Default Login for Keystone Admin**
+`email: user@keystonejs.com`
+`pw:admin`
+
+
 - To Add a Category 
 
   - `Go to Keystone Admin -> Post Category -> Add New`
